@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import org.testng.annotations.BeforeClass;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -27,7 +28,7 @@ public class Topic06_Mouse_Keyboard {
 	}
 
 	@Test
-	public void TC_01() {
+	public void TC_01_Case1() {
 		driver.get("http://daominhdam.890m.com/");
 		WebElement hoverText = driver.findElement(By.xpath("//a[contains(text(),'Hover over me')]"));
 		action.moveToElement(hoverText).perform();
@@ -35,11 +36,19 @@ public class Topic06_Mouse_Keyboard {
 	}
 
 	@Test
-	public void TC_02() {
+	public void TC_01_Case2() {
 		driver.get("http://www.myntra.com/");
-
+		WebElement account = driver.findElement(By.xpath("//span[@class='myntraweb-sprite desktop-iconUser sprites-user']"));
+		action.moveToElement(account).perform();
+		driver.findElement(By.xpath("//a[contains(text(),'login')]")).click();
+		Assert.assertTrue(driver.findElement(By.xpath("//div[@class='login-box']")).isDisplayed());
 	}
-
+	@Test
+	public void TC_02() {
+		driver.get("http://jqueryui.com/resources/demos/selectable/display-grid.html");
+		List<WebElement> items = driver.findElements(By.xpath("//li[@class='ui-state-default ui-selectee']"));
+		action.clickAndHold(items.get(0)).moveToElement(items.get(3)).release().perform();
+	}
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
